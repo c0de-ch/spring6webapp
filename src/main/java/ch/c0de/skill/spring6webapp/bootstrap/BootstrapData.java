@@ -34,8 +34,8 @@ public class BootstrapData implements CommandLineRunner {
         Author savedAuthor = authorRepository.save(author);
 
         Author author2 = new Author();
-        author.setFirstName("Ling");
-        author.setLastName("Li");
+        author2.setFirstName("Ling");
+        author2.setLastName("Li");
         Author savedAuthor2 = authorRepository.save(author2);
 
         Book book = new Book();
@@ -44,8 +44,8 @@ public class BootstrapData implements CommandLineRunner {
         Book savedBook = bookRepository.save(book);
 
         Book book2 = new Book();
-        book.setTitle("The Hitchhiker's Guide to the Galaxy2");
-        book.setIsbn("978-034877902");
+        book2.setTitle("The Hitchhiker's Guide to the Galaxy2");
+        book2.setIsbn("978-034877902");
         Book savedBook2 = bookRepository.save(book2);
 
         Publisher publisher = new Publisher();
@@ -59,15 +59,20 @@ public class BootstrapData implements CommandLineRunner {
 
         savedAuthor.getBooks().add(savedBook);
         savedAuthor2.getBooks().add(savedBook2);
-
         authorRepository.save(savedAuthor);
         authorRepository.save(savedAuthor2);
+
+        savedBook.getAuthors().add(savedAuthor);
+        savedBook2.getAuthors().add(savedAuthor2);
+        bookRepository.save(savedBook);
+        bookRepository.save(savedBook2);
 
         System.out.println("Bootstrap Data");
         System.out.println("=====================");
         System.out.println("Authors: " + authorRepository.count());
         System.out.println("Books: " + bookRepository.count());
         System.out.println("Publishers: " + publisherRepository.count());
+        System.out.println("=====================");
 
     }
 }
